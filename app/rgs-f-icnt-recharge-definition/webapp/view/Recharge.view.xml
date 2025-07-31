@@ -1,0 +1,169 @@
+<mvc:View
+  controllerName="com.roche.rgsficntrechargedefinition.controller.Recharge"
+  xmlns="sap.m"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns:core="sap.ui.core"
+  xmlns:tbl="sap.ui.comp.smarttable"
+  xmlns:fb="sap.ui.comp.smartfilterbar"
+  xmlns:uxap="sap.uxap">
+
+  <Page id="page" title="Recharge SmartTable">
+    <content>
+      <uxap:ObjectPageLayout>
+      	<uxap:headerContent>
+			       <fb:SmartFilterBar
+                  id="smartFilterBar"
+                  entitySet="RechargeType"
+                  liveMode="true"
+                  useToolbar="true"
+                  showClearOnFB="true"
+                  showGoOnFB="true" />
+		</uxap:headerContent>
+        <uxap:headerTitle>
+          <uxap:ObjectPageDynamicHeaderTitle>
+            <uxap:snappedHeading>
+              <Title text="Recharge Types" />
+            </uxap:snappedHeading>
+            <uxap:expandedHeading>
+              <Title text="Recharge Types" />
+            </uxap:expandedHeading>
+          </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:sections>
+          <uxap:ObjectPageSection title="Recharge Table">
+            <uxap:subSections>
+              <uxap:ObjectPageSubSection>
+                
+         
+
+                <tbl:SmartTable
+                  id="smartTable"
+                  smartFilterId="smartFilterBar"
+                  entitySet="RechargeType"
+                  tableType="ResponsiveTable" 
+                  useExportToExcel="true"
+                  useTablePersonalisation="true"
+                  useVariantManagement="false"
+                  header="Recharge Type Table"
+                  showRowCount="true"
+                  enableAutoBinding="true"
+                  persistencyKey="RechargeTableKey" >
+
+                  <Table id="id_RC_Main_Tbl_Main" growing="true" growingScrollToLoad="true" 
+                                        growingThreshold="100" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders"
+                                        mode="SingleSelectMaster" itemPress="onAnRPress" >
+
+                                         <columns>
+                                            <Column width="auto" hAlign="Left">
+                                                <customData>
+                                                    <core:CustomData key="p13nData" value='\{"columnKey": "rechargeTypeId", 
+                                                        "columnIndex": "0", "leadingProperty": "rechargeTypeId", 
+                                                        "sortProperty": "rechargeTypeId", "filterProperty": "rechargeTypeId"}' />
+                                                </customData>
+                                                <Text text="ID" />
+                                                </Column>
+
+                                                 <Column width="auto" hAlign="Left">
+                                                <customData>
+                                                    <core:CustomData key="p13nData" value='\{"columnKey": "version", 
+                                                        "columnIndex": "1", "leadingProperty": "version", 
+                                                        "sortProperty": "version", "filterProperty": "version"}' />
+                                                </customData>
+                                                <Text text="Version" />
+                                                </Column>
+                                                <Column width="auto" hAlign="Left">
+                                                <customData>
+                                                    <core:CustomData key="p13nData" value='\{"columnKey": "rechargeType", 
+                                                        "columnIndex": "2", "leadingProperty": "rechargeType", 
+                                                        "sortProperty": "rechargeType", "filterProperty": "rechargeType"}' />
+                                                </customData>
+                                                <Text text="Recharge Type" />
+                                                </Column>
+                                                 <Column width="15em" hAlign="Left">
+                                                <customData>
+                                                    <core:CustomData key="p13nData" value='\{"columnKey": "rechargeTypeDesc", 
+                                                        "columnIndex": "3", "leadingProperty": "rechargeTypeDesc", 
+                                                        "sortProperty": "rechargeTypeDesc", "filterProperty": "rechargeTypeDesc"}' />
+                                                </customData>
+                                                <Text text="RechargeTypeDesc" />
+                                                </Column>
+                                                  <Column width="auto" hAlign="Left">
+                                                <customData>
+                                                    <core:CustomData key="p13nData" value='\{"columnKey": "rechargeAssessmentReq", 
+                                                        "columnIndex": "4", "leadingProperty": "rechargeAssessmentReq", 
+                                                        "sortProperty": "rechargeAssessmentReq", "filterProperty": "rechargeAssessmentReq"}' />
+                                                </customData>
+                                                <Text text="AssessmentReq" />
+                                                </Column>
+                                                 <Column width="auto" hAlign="Left">
+                                                <customData>
+                                                    <core:CustomData key="p13nData" value='\{"columnKey": "taxCode", 
+                                                        "columnIndex": "5", "leadingProperty": "taxCode", 
+                                                        "sortProperty": "taxCode", "filterProperty": "taxCode"}' />
+                                                </customData>
+                                                <Text text="TaxCode" />
+                                                </Column>
+                                                 <Column width="auto" hAlign="Left">
+                                                <customData>
+                                                    <core:CustomData key="p13nData" value='\{"columnKey": "validFrom", 
+                                                        "columnIndex": "6", "leadingProperty": "validFrom", 
+                                                        "sortProperty": "validFrom", "filterProperty": "validFrom"}' />
+                                                </customData>
+                                                <Text text="ValidFrom" />
+                                                </Column>
+                                                 <Column width="auto" hAlign="Left">
+                                                <customData>
+                                                    <core:CustomData key="p13nData" value='\{"columnKey": "validTo", 
+                                                        "columnIndex": "7", "leadingProperty": "validTo", 
+                                                        "sortProperty": "validTo", "filterProperty": "validTo"}' />
+                                                </customData>
+                                                <Text text="ValidTo" />
+                                                </Column>
+                                                <Column width="auto" hAlign="Left" visible="false">
+                                                <customData>
+                                                    <core:CustomData key="p13nData" value='\{"columnKey": "comment", 
+                                                        "columnIndex": "8", "leadingProperty": "comment", 
+                                                        "sortProperty": "comment", "filterProperty": "comment"}' />
+                                                </customData>
+                                                <Text text="Comment" />
+                                                </Column>
+                                                
+                                                  </columns>
+                                                 <items>
+                                            <ColumnListItem type="Navigation">
+                                                <cells>
+                                                   <Text text="{rechargeTypeId}" />
+                                                   <Text text="{version}" />
+                                                   <Text text="{rechargeType}" />
+                                                   <Text text="{rechargeTypeDesc}" />
+                                                   <Text text="{rechargeAssessmentReq}" />
+                                                   <Text text="{taxCode}" />
+                                                  <Text text="{
+                                                                 path: 'validFrom',
+                                                                 type: 'sap.ui.model.type.Date',
+                                                                 formatOptions: { style: 'medium' }
+                                                            }" />
+                                                  <Text text="{
+                                                                 path: 'validTo',
+                                                                 type: 'sap.ui.model.type.Date',
+                                                                 formatOptions: { style: 'medium' }
+                                                              }" />
+                                                    <Text text="{comment}" />
+                                                  
+                                                   </cells>
+                                                   </ColumnListItem>
+                                                   </items>
+                                          
+                                          
+                                        </Table>
+                  </tbl:SmartTable>
+
+              </uxap:ObjectPageSubSection>
+            </uxap:subSections>
+          </uxap:ObjectPageSection>
+        </uxap:sections>
+      </uxap:ObjectPageLayout>
+    </content>
+  </Page>
+</mvc:View>
