@@ -1,0 +1,31 @@
+<mvc:View
+  controllerName="com.roche.rgsficntrechargedefinition.controller.Detail"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:layout="sap.ui.layout"
+  xmlns:f="sap.ui.layout.form">
+  
+  <Page title="Recharge Type Details" backgroundDesign="Solid">
+  <headerContent>
+  <OverflowToolbarButton 
+   type="Transparent"
+    icon="sap-icon://decline"
+    press="onBackToMain"
+    tooltip="Close middle column"
+    visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }" />
+  </headerContent>
+    <content>
+
+      <f:SimpleForm editable="false">
+        <Label text="Recharge Type ID"/>
+        <Text text="{rechargeTypeId}" />
+
+        <Label text="Version"/>
+        <Text text="{version}" />
+
+        <Label text="Comment"/>
+        <Text text="{comment}" />
+      </f:SimpleForm>
+    </content>
+  </Page>
+</mvc:View>

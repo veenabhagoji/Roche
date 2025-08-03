@@ -9,15 +9,72 @@
 
   <Page id="page" title="Recharge SmartTable">
     <content>
-      <uxap:ObjectPageLayout>
+      <uxap:ObjectPageLayout
+      alwaysShowContentHeader="true"
+      showHeaderContent="true">
       	<uxap:headerContent>
 			       <fb:SmartFilterBar
                   id="smartFilterBar"
                   entitySet="RechargeType"
-                  liveMode="true"
+                  liveMode="false"
                   useToolbar="true"
-                  showClearOnFB="true"
-                  showGoOnFB="true" />
+                  showClearOnFB="true" 
+                  showGoOnFB="true" >
+                  <!-- <fb:controlConfiguration>
+						<fb:ControlConfiguration key="rechargeTypeId" visibleInAdvancedArea="true">
+             <fb:customControl>
+        <Input
+          id="idInput"
+          showValueHelp="true"
+          valueHelpRequest=".onIDValueHelp"
+        />
+         </fb:customControl>
+    </fb:ControlConfiguration>
+              </fb:controlConfiguration> -->
+              <fb:controlConfiguration>
+						<fb:ControlConfiguration key="version" visibleInAdvancedArea="true">
+             <fb:customControl>
+        <Input
+          id="idVersion"
+          showValueHelp="true"
+          valueHelpRequest=".onVersionValueHelp"
+        />
+         </fb:customControl>
+    </fb:ControlConfiguration> 
+              </fb:controlConfiguration>
+
+
+              <fb:controlConfiguration>
+						<fb:ControlConfiguration key="rechargeType" visibleInAdvancedArea="true">
+             <fb:customControl>
+        <Input
+          id="idRechargeType"
+          showValueHelp="true"
+          valueHelpRequest=".onRechargeTypeValueHelp"
+        />
+         </fb:customControl>
+    </fb:ControlConfiguration> 
+              </fb:controlConfiguration>
+
+                <fb:controlConfiguration>
+    <fb:ControlConfiguration key="rechargeAssessmentReq" visibleInAdvancedArea="true" >
+        <fb:customControl>
+            <Select
+                id="idRechargeAssessmentReq"
+                selectedKey="{filters>/rechargeAssessmentReq}"
+                change=".onRechargeAssessmentReqChange"
+            >
+                <core:Item key="" text="Select" />
+                <core:Item key="true" text="Yes" />
+                <core:Item key="false" text="No" />
+            </Select>
+        </fb:customControl>
+    </fb:ControlConfiguration>
+</fb:controlConfiguration>
+
+
+            </fb:SmartFilterBar>
+        
 		</uxap:headerContent>
         <uxap:headerTitle>
           <uxap:ObjectPageDynamicHeaderTitle>
@@ -37,7 +94,7 @@
                 
          
 
-                <tbl:SmartTable
+                <tbl:SmartTable  
                   id="smartTable"
                   smartFilterId="smartFilterBar"
                   entitySet="RechargeType"
@@ -48,11 +105,23 @@
                   header="Recharge Type Table"
                   showRowCount="true"
                   enableAutoBinding="true"
+                   beforeRebindTable="amBeforeRebind"
                   persistencyKey="RechargeTableKey" >
+
+                   <tbl:customToolbar>
+        <Toolbar>
+            <ToolbarSpacer />
+            <Button
+                text="Create"
+               
+                type="Emphasized"
+                press=".onCreatePress" />
+        </Toolbar>
+    </tbl:customToolbar>
 
                   <Table id="id_RC_Main_Tbl_Main" growing="true" growingScrollToLoad="true" 
                                         growingThreshold="100" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders"
-                                        mode="SingleSelectMaster" itemPress="onAnRPress" >
+                                        mode="SingleSelectMaster" itemPress="onRowPress" >
 
                                          <columns>
                                             <Column width="auto" hAlign="Left">
@@ -86,7 +155,7 @@
                                                         "columnIndex": "3", "leadingProperty": "rechargeTypeDesc", 
                                                         "sortProperty": "rechargeTypeDesc", "filterProperty": "rechargeTypeDesc"}' />
                                                 </customData>
-                                                <Text text="RechargeTypeDesc" />
+                                                <Text text="Recharge Type Desc" />
                                                 </Column>
                                                   <Column width="auto" hAlign="Left">
                                                 <customData>
@@ -94,7 +163,7 @@
                                                         "columnIndex": "4", "leadingProperty": "rechargeAssessmentReq", 
                                                         "sortProperty": "rechargeAssessmentReq", "filterProperty": "rechargeAssessmentReq"}' />
                                                 </customData>
-                                                <Text text="AssessmentReq" />
+                                                <Text text="Assessment Req" />
                                                 </Column>
                                                  <Column width="auto" hAlign="Left">
                                                 <customData>
@@ -102,7 +171,7 @@
                                                         "columnIndex": "5", "leadingProperty": "taxCode", 
                                                         "sortProperty": "taxCode", "filterProperty": "taxCode"}' />
                                                 </customData>
-                                                <Text text="TaxCode" />
+                                                <Text text="Tax Code" />
                                                 </Column>
                                                  <Column width="auto" hAlign="Left">
                                                 <customData>
@@ -110,7 +179,7 @@
                                                         "columnIndex": "6", "leadingProperty": "validFrom", 
                                                         "sortProperty": "validFrom", "filterProperty": "validFrom"}' />
                                                 </customData>
-                                                <Text text="ValidFrom" />
+                                                <Text text="Valid From" />
                                                 </Column>
                                                  <Column width="auto" hAlign="Left">
                                                 <customData>
@@ -118,7 +187,7 @@
                                                         "columnIndex": "7", "leadingProperty": "validTo", 
                                                         "sortProperty": "validTo", "filterProperty": "validTo"}' />
                                                 </customData>
-                                                <Text text="ValidTo" />
+                                                <Text text="Valid To" />
                                                 </Column>
                                                 <Column width="auto" hAlign="Left" visible="false">
                                                 <customData>

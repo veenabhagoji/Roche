@@ -1,0 +1,59 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"  xmlns:f="sap.ui.layout.form">
+  <Dialog id="createDialog" title="Create Recharge Type" draggable="true" resizable="true">
+    <content>
+      <f:SimpleForm
+        layout="ResponsiveGridLayout"
+        width="30em"
+        editable="true"
+        labelSpanM="3"
+        emptySpanM="1"
+        columnsM="2">
+        
+        <!-- <Label text="Recharge Type ID" />
+        <Input value="{newRecharge>/rechargeTypeId}" />
+
+        <Label text="Version" />
+        <Input value="{newRecharge>/version}" /> -->
+
+        <Label text="Recharge Type" />
+        <Input value="{newRecharge>/rechargeType}" />
+
+        <Label text="Description" />
+        <Input value="{newRecharge>/rechargeTypeDesc}" />
+
+        <Label text="Assessment Required" />
+        <CheckBox selected="{newRecharge>/rechargeAssessmentReq}" />
+
+        <Label text="Tax Code" />
+        <Input value="{newRecharge>/taxCode}" />
+
+        <!-- <Label text="Valid From" />
+        <DatePicker value="{newRecharge>/validFrom}" />
+
+        <Label text="Valid To" />
+        <DatePicker value="{newRecharge>/validTo}" /> -->
+       <Label text="Valid From" />
+        <DatePicker 
+    value="{path: 'newRecharge>/validFrom', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' }}" 
+    displayFormat="yyyy-MM-dd"
+/>
+  <Label text="Valid To" />
+<DatePicker 
+    value="{path: 'newRecharge>/validTo', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' }}" 
+    displayFormat="yyyy-MM-dd"
+/>
+
+
+        <Label text="Comment" />
+        <TextArea value="{newRecharge>/comment}" />
+        
+      </f:SimpleForm>
+    </content>
+    <beginButton>
+      <Button text="Save" press=".onSaveRecharge" type="Emphasized" />
+    </beginButton>
+    <endButton>
+      <Button text="Cancel" press=".onCancelRecharge" />
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

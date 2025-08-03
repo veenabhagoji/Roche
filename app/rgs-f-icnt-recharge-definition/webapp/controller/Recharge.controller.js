@@ -1,13 +1,20 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/comp/valuehelpdialog/ValueHelpDialog",
-    "sap/ui/model/json/JSONModel"
-], (Controller, ValueHelpDialog, JSONModel) => {
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/core/Fragment", 
+    "sap/m/MessageToast",    
+    "sap/m/MessageBox",      
+    "sap/ui/model/Filter",   
+    "sap/ui/model/FilterOperator" 
+], (Controller, ValueHelpDialog, JSONModel, Fragment, MessageToast, MessageBox, Filter, FilterOperator) => {
     "use strict";
 
     return Controller.extend("com.roche.rgsficntrechargedefinition.controller.Recharge", {
         onInit() {
             this.formatter = this.getOwnerComponent().formatter;
+
+            this.getView().setModel(new sap.ui.model.json.JSONModel(), "newRecharge");
         },
 
         onIDValueHelp: function (oEvent) {
@@ -131,8 +138,125 @@ sap.ui.define([
               version,
               layout: sap.f.LayoutType.TwoColumnsBeginExpanded
             });
-          }
+          },
+          onCreatePress: function () {
+            const oView = this.getView();
           
+            // Reset the model
+            const oModel = oView.getModel("newRecharge");
+            oModel.setData({
+              rechargeTypeId: "",
+              version: "",
+              rechargeType: "",
+              rechargeTypeDesc: "",
+              rechargeAssessmentReq: false,
+              taxCode: "",
+              validFrom: null,
+              validTo: null,
+              comment: ""
+            });
+          
+            if (!this._oDialog) {
+              Fragment.load({
+                name: "com.roche.rgsficntrechargedefinition.view.fragment.RechargeCreateDialog",
+                controller: this
+              }).then(function (oDialog) {
+                this._oDialog = oDialog;
+                oView.addDependent(this._oDialog);
+                this._oDialog.open();
+              }.bind(this));
+            } else {
+              this._oDialog.open();
+            }
+          },
+          
+          onSaveRecharge: function () {
+            const oData = this.getView().getModel("newRecharge").getData();
+          
+            // Add validation logic if needed
+            if (!oData.rechargeTypeId || !oData.version) {
+              MessageBox.warning("Please fill required fields.");
+              return;
+            }
+          
+          const oModel=this.getOwnerComponent().getModel();
+            oModel.create("/RechargeType", oData, {
+                success: () => {
+                    MessageToast.show("Recharge Type Created");
+                    this._oDialog.close();
+                    oModel.refresh(); // refresh list/table
+                    this._oDialog.close();
+                },
+                error: (oError) => {
+                    MessageBox.error("Creation failed");
+                    console.error(oError);
+                }
+            });
+            // Post logic here (OData.create, batch, etc.)
+          
+          
+           
+          },
+          
+          onCancelRecharge: function () {
+            this._oDialog.close();
+          },
+
+          onRechargeTypeValueHelp: function (oEvent) {
+            var oInput = oEvent.getSource();
+            var oView = this.getView();
+            var oODataModel = oView.getModel();
+            var that = this;
+        
+            if (!this._oRechargeTypeDialog) {
+                this._oRechargeTypeDialog = new sap.m.SelectDialog({
+                    title: "Select Recharge Type",
+                    noDataText: "No recharge types found",
+                    search: function (oEvt) {
+                        var sValue = oEvt.getParameter("value");
+                        var oFilter = new sap.ui.model.Filter("rechargeType", sap.ui.model.FilterOperator.Contains, sValue);
+                        oEvt.getSource().getBinding("items").filter([oFilter]);
+                    },
+                    confirm: function (oEvt) {
+                        var oSelected = oEvt.getParameter("selectedItem");
+                        if (oSelected) {
+                            var sRechargeType = oSelected.getTitle();
+                            oInput.setValue(sRechargeType);
+        
+                            // Optional: apply filter on the SmartTable by rechargeType
+                            var oSmartTable = that.byId("smartTable");
+                            var oInnerTable = oSmartTable.getTable();
+                            if (oInnerTable) {
+                                var oBinding = oInnerTable.getBinding("items");
+                                if (oBinding) {
+                                    var oFilter = new sap.ui.model.Filter("rechargeType", sap.ui.model.FilterOperator.EQ, sRechargeType);
+                                    oBinding.filter([oFilter]);
+                                }
+                            }
+                        }
+                    }
+                });
+        
+                this._oRechargeTypeDialog.setModel(oODataModel);
+                this._oRechargeTypeDialog.bindAggregation("items", {
+                    path: "/RechargeType",
+                    template: new sap.m.StandardListItem({
+                        title: "{rechargeType}",
+                        description: "{rechargeTypeDesc}"
+                    })
+                });
+        
+                oView.addDependent(this._oRechargeTypeDialog);
+            }
+        
+            this._oRechargeTypeDialog.getBinding("items").filter([]);
+            this._oRechargeTypeDialog.open();
+        }
+       
+        
+        
+        
+        
 
           
           
