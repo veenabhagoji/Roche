@@ -18,13 +18,13 @@ sap.ui.define([
             UIComponent.prototype.init.apply(this, arguments);
 
             // set the device model
-            // this.setModel(models.createDeviceModel(), "device");
+            this.setModel(models.createDeviceModel(), "device");
 
-            // // ✅ set global application model
-            // var oAppModel = new JSONModel({
-            //     Layout: "OneColumn" // default layout
-            // });
-            // this.setModel(oAppModel, "globalStorage");
+            // ✅ set global application model
+            var oAppModel = new JSONModel({
+                Layout: "OneColumn" // default layout
+            });
+            this.setModel(oAppModel, "globalStorage");
 
             // initialize routing
             this.getRouter().initialize();

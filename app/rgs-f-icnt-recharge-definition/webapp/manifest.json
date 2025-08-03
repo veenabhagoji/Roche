@@ -38,6 +38,7 @@
   },
   "sap.ui5": {
     "flexEnabled": true,
+    
     "dependencies": {
       "minUI5Version": "1.138.1",
       "libs": {
@@ -97,6 +98,11 @@
           "pattern": "",
           "name": "master",
           "target": ["TargetRecharge"]
+        },
+        {
+          "pattern": "detail/{rechargeTypeId}/{version}/{layout}", 
+          "name": "detail",
+          "target": ["TargetRecharge", "TargetDetail"]
         }
       ],
       "targets": {
@@ -104,6 +110,11 @@
           "viewName": "Recharge",
           "controlAggregation": "beginColumnPages",
           "viewLevel": 1
+        },
+        "TargetDetail": {
+          "viewName": "Detail",
+         "controlAggregation": "midColumnPages",
+          "viewLevel": 3
         }
       }
     },
